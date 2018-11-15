@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>两列布局</title>
+	<style type="text/css">
+	*{
+		margin: 0; /*margin默认值为0，实际chrome表现却不一致*/
+		padding: 0; /*默认值为0，但浏览器可以设置各自的默认值，这里需要统一初始化*/
+	}
+	body{
+		min-width: 900px;
+	}
+	.container{
+		padding-left: 200px;
+		background-color: pink;
+		overflow: hidden; /*由于container元素中的所有子元素均浮动了，导致container高度坍塌，这里要形成BFC*/
+	}
+	.column-a{
+		float: left;
+		margin-left: -100%;
+		position: relative;
+		left: -200px;
+		width: 200px;
+		height: 300px;
+		background-color: red;
+	}
+	.column-b{
+		float: left; /*即使给column-a浮动元素设置了负边距，浮动元素(column-a)也不会与文档流中的元素(未设置float的column-b)重叠，因此要给column-b设置float*/
+		width: 100%;
+		height: 300px;
+		background-color: blue;
+
+	}
+	.column-c{
+		/*float: left;*/  /*如果container不形成BFC，可以使用将column-c设置为float的方式防止column-c与container中的浮动元素(column-a/b)重叠*/
+		width: 100%;
+		height: 400px;
+		background-color: yellow;
+	}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="column-b">
+			我要自适应
+		</div>
+		<div class="column-a">
+			我是固定宽度
+		</div>
+	</div>
+	<div class="column-c">
+		我没设置float
+	</div>
+</body>
+</html>
